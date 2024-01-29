@@ -16,3 +16,26 @@ print("Ellel"+" favoriteNumber is "+str(favorite_number["Ellel"]))
 del favorite_number["Bell"]
 favorite_number["Ferend"]=6
 print(favorite_number)
+
+
+# 6-10 喜欢的数字：修改为完成练习6-2而编写的程序，让每个人都可以有多个喜欢的数字，然后将每个人的名字及其喜欢的数字打印出来
+favorite_numbers={
+    "Bell":[1,100],
+    "Bob":[2,200,2000],
+    "Candy":[3],
+    "Dincy":[4,14,44],
+    "Ellel":[1,5,10,15]
+    }
+
+for name,numbers in favorite_numbers.items():
+    
+    lenz=len(numbers)
+    if lenz<1:
+        print(name +"favorte number is None")
+    else:
+        if lenz ==1:
+            print(name +"favorte number is")
+        else:
+            print(name +"favorte numbers are")
+        for number in numbers:
+            print(number)
