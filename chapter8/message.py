@@ -2,4 +2,4 @@
 def display_message():
     print("我学到什么是函数了")
 
-display_message()
+# display_message()
