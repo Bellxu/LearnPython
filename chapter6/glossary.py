@@ -19,3 +19,14 @@ glossary={
 glossary["dddd"] = "dsadsad"
 for key,value in glossary.items():
     print(key+" : "+value)
+
+# 9-13 使用OrderedDict：在练习6-4中，你使用了一个标准字典来表示词汇表。
+# 请使用OrderedDict类来重写这个程序，并确认输出的顺序与你在字典中添加键—值对的顺序一致。
+from collections import OrderedDict
+order_glossary=OrderedDict()
+order_glossary["for"]="遍历"
+order_glossary["in"]="在什么什么中"
+order_glossary["if"]="判断"
+order_glossary["not in"]="不在"
+for key,value in order_glossary.items():
+    print(key+" : "+value)
