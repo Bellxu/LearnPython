@@ -1,0 +1,3 @@
+In Python you can foreach
+In Python you can count
+In Python you can print
