@@ -10,5 +10,7 @@ class CityCountryTestCase(unittest.TestCase):
         """"可以这样测试吗"""
         city_inform_=city_inform("beijing","china")
         self.assertEqual(city_inform_,"Beijing,China")
-
+    def test_city_country_population(self):
+        city_inform_=city_inform("zhengjiang","china",5000)
+        self.assertEqual(city_inform_,"Zhengjiang,China-5000")
 unittest.main()
