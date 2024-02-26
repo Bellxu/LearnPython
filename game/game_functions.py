@@ -5,6 +5,8 @@ from alien import Alien
 from settings import Settings
 from pygame.sprite import Group 
 from ship import Ship
+from game_stats import GameStats
+from time import sleep
 
 
 
@@ -43,17 +45,19 @@ def update_screen(settings,screen,ship,aliens,bullets):
     aliens.draw(screen)
     pygame.display.flip()
 
-def update_bullets(bullets:Group,settings,screen,ship,aliens): 
-    bullets.update()
-    for bullet in bullets.copy():
+def update_bullets(settings:Settings,screen,ship:Ship,aliens:Group,bullets:Group): 
+   bullets.update()
+   for bullet in bullets.copy():
       if bullet.rect.bottom <= 0:
         bullets.remove(bullet)
-   # 如果有子弹和外星人有交错就移除
-    collisions=pygame.sprite.groupcollide(bullets,aliens,True,True)
-    #如果外星人被消灭完了就创建新的
-    if len(aliens) == 0:
-       bullets.empty()
-       create_fleet(settings,screen,ship,aliens)
+   check_bullet_aline_collision(settings,screen,ship,aliens,bullets)
+
+
+def check_bullet_aline_collision(settings,screen,ship,aliens,bullets):
+   pygame.sprite.groupcollide(aliens,bullets,True,True)
+   if len(aliens) == 0:
+      bullets.empty()
+      create_fleet(settings,screen,ship,aliens)
 
 def fire_bullets(settings,screen,ship,bullets):
     if len(bullets) < settings.bullets_allowed:
@@ -101,11 +105,36 @@ def create_fleet(settings:Settings,screen,ship:Ship,aliens:Group):
       alien=create_alien(settings,screen,alien_x_number_i,alien_y_number_i)
       aliens.add(alien)
 
-def update_aliens(aliens:Group,settings:Settings):
+def update_aliens(aliens,ship,bullets,settings,game_stats,screen):
   #  检查外星人是否超出屏幕
    check_fleet_edges(aliens,settings)
    aliens.update()
+   # 检查外星人和飞船碰撞
+   if pygame.sprite.spritecollideany(ship,aliens):
+      ship_hit(aliens,ship,bullets,settings,game_stats,screen)
+   if check_aliens_bottom(aliens,ship,bullets,settings,game_stats,screen):
+      ship_hit(aliens,ship,bullets,settings,game_stats,screen)
 
+def check_aliens_bottom(aliens,ship,bullets,settings,game_stats,screen):
+   """""检查外星人是不是碰到屏幕底部了"""
+   for aline in aliens.sprites():
+      if aline.rect.bottom >= screen.get_rect().bottom:
+         ship_hit(aliens,ship,bullets,settings,game_stats,screen)
+         break
+
+def ship_hit(aliens:Group,ship:Ship,bullets:Group,settings:Settings,game_stats:GameStats,screen):
+   """""响应外星人撞到飞船关系"""
+   #飞船的命减去一条,外星人重置,子弹清空
+   if game_stats.ship_left>0:
+      game_stats.ship_left -=1
+      aliens.empty()
+      bullets.empty()
+      create_fleet(settings,screen,ship,aliens)
+      ship.center_ship()
+      sleep(0.5)
+   else:
+      game_stats.game_activte=False
+   
 def check_fleet_edges(aliens:Group,settings:Settings):
    for aline in aliens.sprites():
       if aline.check_edges():
