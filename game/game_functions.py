@@ -43,11 +43,17 @@ def update_screen(settings,screen,ship,aliens,bullets):
     aliens.draw(screen)
     pygame.display.flip()
 
-def update_bullets(bullets): 
+def update_bullets(bullets:Group,settings,screen,ship,aliens): 
     bullets.update()
     for bullet in bullets.copy():
       if bullet.rect.bottom <= 0:
         bullets.remove(bullet)
+   # 如果有子弹和外星人有交错就移除
+    collisions=pygame.sprite.groupcollide(bullets,aliens,True,True)
+    #如果外星人被消灭完了就创建新的
+    if len(aliens) == 0:
+       bullets.empty()
+       create_fleet(settings,screen,ship,aliens)
 
 def fire_bullets(settings,screen,ship,bullets):
     if len(bullets) < settings.bullets_allowed:
