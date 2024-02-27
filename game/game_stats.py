@@ -4,9 +4,10 @@ class GameStats():
 
     def __init__(self,settings:Settings):
         self.settings=settings
-        self.game_activte=True
+        self.game_activte=False
         self.rest_stats()
     
     def rest_stats(self):
         """""初始化游戏信息"""
-        self.ship_left=self.settings.ship_limit    
+        self.ship_left=self.settings.ship_limit
+        self.score = 0    
