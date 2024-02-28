@@ -1,8 +1,9 @@
 import pygame
+from pygame.sprite import Sprite
 
-
-class Ship():
+class Ship(Sprite):
     def __init__(self,screen,settings):
+        super(Ship,self).__init__()
         """初始化飞船位置"""
         self.screen=screen
         self.image=pygame.image.load('images/ship.bmp')

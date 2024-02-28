@@ -7,6 +7,9 @@
 # print(nan==nan)
 # print(num==num)
 
-list=("dsada",1231,12.5)
-for item in list:
-    print(item)
+# list=("dsada",1231,12.5)
+# for item in list:
+#     print(item)
+    
+number=round(10.1,-1)
+print(number)

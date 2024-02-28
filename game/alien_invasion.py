@@ -9,6 +9,7 @@ from scoreboard import ScoreBoard
 def run_game():
     pygame.init()
     settings=Settings()
+    pygame.font.init()
     screen = pygame.display.set_mode((settings.screen_width,settings.screen_height))
     ship=Ship(screen,settings)
     game_stats=GameStats(settings)
@@ -19,10 +20,10 @@ def run_game():
     score_board=ScoreBoard(screen,settings,game_stats)
     gf.create_fleet(settings,screen,ship,aliens)
     while True:
-        gf.check_events(settings,game_stats,screen,ship,aliens,bullets,play_button)
+        gf.check_events(settings,game_stats,screen,ship,aliens,bullets,play_button,score_board)
         if game_stats.game_activte: 
             ship.update()
             gf.update_bullets(settings,screen,game_stats,score_board,ship,aliens,bullets)
-            gf.update_aliens(aliens,ship,bullets,settings,game_stats,screen)
+            gf.update_aliens(aliens,ship,bullets,score_board,settings,game_stats,screen)
         gf.update_screen(settings,screen,ship,aliens,bullets,game_stats,play_button,score_board)
 run_game()
