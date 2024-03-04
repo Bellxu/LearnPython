@@ -12,7 +12,7 @@ class Settings():
         self.bullet_color=60,60,60
         self.bullets_allowed=3
         #外星人相关
-        self.alien_fleet_drop_speed=10
+        self.alien_fleet_drop_speed=2
 
         self.game_speed_scale=1.1
         self.score_scale=1.5
@@ -27,7 +27,7 @@ class Settings():
         self.alien_speed_factor = 1
         # fleet_direction为1表示向右；为-1表示向左
         #舰队方向
-        self.alien_fleet_direction=1
+        self.alien_fleet_direction=-1
         self.aline_point=50
 
     def increase_speed(self):

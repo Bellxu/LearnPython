@@ -35,10 +35,10 @@ class Alien(Sprite):
         #     self.x +=(self.seetings.alien_speed_factor * self.seetings.alien_fleet_direction)
         #     self.rect.x=self.x
         print("current_time ="+str(current_time)+"last_time"+str(self.last_time))
-        if current_time-self.last_time >20:
-            self.last_time=current_time
-            self.x +=(self.seetings.alien_speed_factor * self.seetings.alien_fleet_direction)
-            self.rect.x=self.x
+        # if current_time-self.last_time >20:
+        self.last_time=current_time
+        self.x +=(self.seetings.alien_speed_factor * self.seetings.alien_fleet_direction)
+        self.rect.x=self.x
         
 
 
