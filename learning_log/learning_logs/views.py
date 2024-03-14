@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.http import HttpRequest
+from django.contrib.auth.decorators import login_required
 
 
 from .models import Topic ,Entry
@@ -11,19 +12,20 @@ def index(request):
     """The home page for Learning Log."""
     return render(request, 'learning_logs/index.html')
 
+@login_required
 def topics(request):
     """Show all topics."""
     topics = Topic.objects.order_by('date_added')
     context = {'topics': topics}
     return render(request, 'learning_logs/topics.html', context)
-
+@login_required
 def topic(request, topic_id):
     """Show a single topic, and all its entries."""
     topic = Topic.objects.get(id=topic_id)
     entries = topic.entry_set.order_by('date_added')
     context = {'topic': topic, 'entries': entries}
     return render(request, 'learning_logs/topic.html', context)
-
+@login_required
 def new_topic(request:HttpRequest):
     if request.method != 'POST':
         #未提交数据,创建一个新表单
@@ -37,7 +39,7 @@ def new_topic(request:HttpRequest):
         
     context = {'form':form}    
     return render(request, 'learning_logs/new_topic.html',context)
-
+@login_required
 def new_entry(request,topic_id):
     """""在特定的主题中添加新条目"""
     topic = Topic.objects.get(id=topic_id)
@@ -55,7 +57,7 @@ def new_entry(request,topic_id):
                                         args=[topic_id]))
     context = {'topic':topic,'form':form}
     return render(request,'learning_logs/new_entry.html',context)
-
+@login_required
 def edit_entry(request:HttpRequest,entry_id):
     """""编辑已有条目"""
     entry = Entry.objects.get(id=entry_id)

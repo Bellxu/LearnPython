@@ -11,4 +11,9 @@ for new_user in new_users:
             print(new_user+" is used by other user")
         else:
             print(new_user+" name can use")
-    
+            
+for new_user in new_users:   
+ if new_user.title() in current_users or new_user.upper() in current_users or new_user.upper() in current_users:
+    print(new_user+" is used by other user")
+ else:
+    print(new_user+" name can use")
